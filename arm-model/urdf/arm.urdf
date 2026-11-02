@@ -1,93 +1,102 @@
 <?xml version="1.0"?>
 <robot name="prototype_arm">
 
-  <!-- BASE -->
-  <link name="base">
-    <visual>
-      <geometry>
-        <cylinder radius="0.5" length="0.2"/>
-      </geometry>
-    </visual>
-  </link>
+    <material name="blue">
+        <color rgba="0.2 0.5 0.9 1.0" />
+    </material>
 
-  <!-- STUB: 0.3 x 0.3 x 0.4 -->
-  <link name="stub">
-    <visual>
-      <origin xyz="0 0 0.2" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.3 0.3 0.4"/>
-      </geometry>
-    </visual>
-  </link>
+    <!-- BASE -->
+    <link name="base">
+        <visual>
+            <material name="blue" />
+            <geometry>
+                <cylinder radius="0.5" length="0.2" />
+            </geometry>
+        </visual>
+    </link>
 
-  <!-- ARM 1: 0.1 x 0.25 x 0.7 -->
-  <link name="arm_1">
-    <visual>
-      <origin xyz="0.05 0 0.3" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.1 0.25 0.7"/>
-      </geometry>
-    </visual>
-  </link>
+    <!-- STUB: 0.3 x 0.3 x 0.4 -->
+    <link name="stub">
+        <visual>
+            <material name="blue" />
+            <origin xyz="0 0 0.2" rpy="0 0 0" />
+            <geometry>
+                <box size="0.3 0.3 0.4" />
+            </geometry>
+        </visual>
+    </link>
 
-  <!-- ARM 2: 0.1 x 0.2 x 0.6 -->
-  <link name="arm_2">
-    <visual>
-      <origin xyz="-0.05 0 0.25" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.1 0.2 0.6"/>
-      </geometry>
-    </visual>
-  </link>
+    <!-- ARM 1: 0.1 x 0.25 x 0.7 -->
+    <link name="arm_1">
+        <visual>
+            <material name="blue" />
+            <origin xyz="0.05 0 0.3" rpy="0 0 0" />
+            <geometry>
+                <box size="0.1 0.25 0.7" />
+            </geometry>
+        </visual>
+    </link>
 
-  <!-- ARM 3: 0.1 x 0.15 x 0.4 -->
-  <link name="arm_3">
-    <visual>
-      <origin xyz="0.05 0 0.15" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.1 0.15 0.4"/>
-      </geometry>
-    </visual>
-  </link>
+    <!-- ARM 2: 0.1 x 0.2 x 0.6 -->
+    <link name="arm_2">
+        <visual>
+            <material name="blue" />
+            <origin xyz="-0.05 0 0.25" rpy="0 0 0" />
+            <geometry>
+                <box size="0.1 0.2 0.6" />
+            </geometry>
+        </visual>
+    </link>
 
-  <!-- JOINT 1: Base -> Stub (Z rotation) -->
-  <joint name="joint_1" type="revolute">
-    <parent link="base"/>
-    <child link="stub"/>
-    <origin xyz="0 0 0.1" rpy="0 0 0"/>
-    <axis xyz="0 0 1"/>
-    <limit lower="-3.14159" upper="3.14159"
-           effort="10" velocity="1"/>
-  </joint>
+    <!-- ARM 3: 0.1 x 0.15 x 0.4 -->
+    <link name="arm_3">
+        <visual>
+            <material name="blue" />
+            <origin xyz="0.05 0 0.15" rpy="0 0 0" />
+            <geometry>
+                <box size="0.1 0.15 0.4" />
+            </geometry>
+        </visual>
+    </link>
 
-  <!-- JOINT 2: Stub -> Arm 1 (X rotation) -->
-  <joint name="joint_2" type="revolute">
-    <parent link="stub"/>
-    <child link="arm_1"/>
-    <origin xyz="0.15 0 0.2" rpy="0 0 0"/>
-    <axis xyz="1 0 0"/>
-    <limit lower="-1.57" upper="1.57"
-           effort="10" velocity="1"/>
-  </joint>
+    <!-- JOINT 1: Base -> Stub (Z rotation) -->
+    <joint name="joint_1" type="revolute">
+        <parent link="base" />
+        <child link="stub" />
+        <origin xyz="0 0 0.1" rpy="0 0 0" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.14159" upper="3.14159"
+            effort="10" velocity="1" />
+    </joint>
 
-  <!-- JOINT 3: Arm 1 -> Arm 2 (X rotation) -->
-  <joint name="joint_3" type="revolute">
-    <parent link="arm_1"/>
-    <child link="arm_2"/>
-    <origin xyz="0 0 0.6" rpy="0 0 0"/>
-    <axis xyz="1 0 0"/>
-    <limit lower="-1.57" upper="1.57"
-           effort="10" velocity="1"/>
-  </joint>
+    <!-- JOINT 2: Stub -> Arm 1 (X rotation) -->
+    <joint name="joint_2" type="revolute">
+        <parent link="stub" />
+        <child link="arm_1" />
+        <origin xyz="0.15 0 0.2" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <limit lower="-1.57" upper="1.57"
+            effort="10" velocity="1" />
+    </joint>
 
-  <!-- JOINT 4: Arm 2 -> Arm 3 (X rotation) -->
-  <joint name="joint_4" type="revolute">
-    <parent link="arm_2"/>
-    <child link="arm_3"/>
-    <origin xyz="0 0 0.5" rpy="0 0 0"/>
-    <axis xyz="1 0 0"/>
-    <limit lower="-1.57" upper="1.57"
-           effort="10" velocity="1"/>
-  </joint>
+    <!-- JOINT 3: Arm 1 -> Arm 2 (X rotation) -->
+    <joint name="joint_3" type="revolute">
+        <parent link="arm_1" />
+        <child link="arm_2" />
+        <origin xyz="0 0 0.6" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <limit lower="-1.57" upper="1.57"
+            effort="10" velocity="1" />
+    </joint>
+
+    <!-- JOINT 4: Arm 2 -> Arm 3 (X rotation) -->
+    <joint name="joint_4" type="revolute">
+        <parent link="arm_2" />
+        <child link="arm_3" />
+        <origin xyz="0 0 0.5" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <limit lower="-1.57" upper="1.57"
+            effort="10" velocity="1" />
+    </joint>
 
 </robot>
