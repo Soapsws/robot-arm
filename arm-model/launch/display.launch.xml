@@ -5,10 +5,22 @@
     <param name="robot_description"
        type="str"
        value="$(command 'cat $(find-pkg-share arm_description)/urdf/arm.urdf')"/>
+    <param name="publish_frequency" type="double" value="50.0"/>
   </node>
 
-  <node pkg="joint_state_publisher_gui"
-        exec="joint_state_publisher_gui"/>
+  <node pkg="joint_state_publisher_gui" exec="joint_state_publisher_gui">
+    <param name="rate" type="int" value="30"/>
+    <remap from="joint_states" to="flail/slider_input"/>
+  </node>
+
+  <node pkg="arm_control" exec="flail_node">
+    <param name="robot_description" type="str"
+       value="$(command 'cat $(find-pkg-share arm_description)/urdf/arm.urdf')"/>
+    <param name="window_seconds" type="double" value="0.4"/>
+    <param name="reaction_gain" type="double" value="1.0"/>
+    <param name="idle_speed" type="double" value="0.06"/>
+    <param name="seed" type="int" value="7"/>
+  </node>
 
   <node pkg="rviz2" exec="rviz2"/>
 </launch>

@@ -11,28 +11,34 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(trajectory_msgs REQUIRED)
-find_package(tf2_ros REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(urdf REQUIRED)
 
-add_executable(joint_state_demo
-  src/joint_state_demo.cpp
+add_executable(flail_node
+  src/flail_node.cpp
+  src/flail_motion.cpp
 )
 
-target_include_directories(joint_state_demo PRIVATE
+target_include_directories(flail_node PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-target_link_libraries(joint_state_demo PRIVATE
+target_link_libraries(flail_node PRIVATE
   rclcpp::rclcpp
   sensor_msgs::sensor_msgs
-  geometry_msgs::geometry_msgs
-  trajectory_msgs::trajectory_msgs
-  tf2_ros::tf2_ros
+  std_msgs::std_msgs
+  urdf::urdf
 )
 
-install(TARGETS joint_state_demo
+install(TARGETS flail_node
   DESTINATION lib/${PROJECT_NAME}
 )
+
+if(BUILD_TESTING)
+  enable_testing()
+  add_executable(flail_motion_test test/flail_motion_test.cpp src/flail_motion.cpp)
+  target_include_directories(flail_motion_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+  add_test(NAME flail_motion_test COMMAND flail_motion_test)
+endif()
 
 ament_package()

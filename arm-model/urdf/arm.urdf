@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <robot name="prototype_arm">
 
+    <!-- Prototype visualization limits. The flail controller reads each joint's
+         angle and velocity bounds here; these are not hardware specifications. -->
+
     <material name="blue">
         <color rgba="0.2 0.5 0.9 1.0" />
     </material>
